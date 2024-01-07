@@ -2,7 +2,6 @@
 #include <math.h>
 
 
-
 int convert_to_base(int num_to_convert, int source_base, int target_base){
     int value_to_convert = 0;
     int mod;
@@ -12,6 +11,7 @@ int convert_to_base(int num_to_convert, int source_base, int target_base){
         num_to_convert = num_to_convert / 16;
         value_to_convert += mod * (int)powl(source_base, i++);
     }
+
 
     int result = 0;
     i = 0;
