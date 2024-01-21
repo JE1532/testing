@@ -6,8 +6,7 @@ K = 0
 N = 0
 file = None
 data = []
-clusters_numbers = [] # same size as data. each element is a cluster number.
-centroids = []
+clusters= []
 
 def validate_iter():
    if int(sys.argv[2]) < 2 or int(sys.argv[2]) > 999: 
@@ -37,30 +36,63 @@ def read_data_from_file(file):
     try:
         with open(file, 'r') as file:
             for line in file:
-                if line.strip() == '':
-                    continue  
-                    data.append([int(x) for x in line.split()])
+                data.append([int(x) for x in line.split()])
                         
                         
-                    
-def assign_datapoint_to_cluster(datapoint_index, cluster_number):        
-    pass
+    
+def get_distance(centroid, datapoint):
+    return math.sqrt(sum([(centroid[i] - datapoint[i]) ** 2 for i in range(len(centroid))]))
+
+def get_current_cluster():
+    for i in range(len(clusters)):
+        if data_point in clusters[i]:
+            return i
+    throw new Exception("Data point not found in any cluster!")
+
+
+
+def reassign_data_point(data_point, cluster_number):
+    clusters[get_current_cluster(data_point)].remove(data_point)
+    clusters[cluster_number].append(datapoint)
+
+def check_convergence(centroids, copy_centroids):
+    for i in range(len(centroids)):
+        if abs(centroids[i] - copy_centroids[i]) > epsilon:
+            return False
+    return True
+
             
 def kmeans(k, iter, data):
     for i in range(k):
-        assign_datapoint_to_cluster(i, i)
+        clusters.append([])
+        centroids[i] = 0
+        assign_datapoint_to_cluster(data[i], i)
+        
     for i in range(iter):
+        for j in range(len(data)):
+            copy_centroids = list(centroids)
+            diffs = [get_distance(centroid, data[j]) for centroid in centroids]
+            closest_centroid = diffs.index(min(diffs))
+            reassign_data_point(data[j], closest_centroid)
+        check_convergence(centroids, copy_centroids)
         
         
  
-            
+def print_results():
+    for i in range(len(clusters)):
+        for j in range(len(clusters[i])):
+            print(clusters[i][j], end = " ")
+        print("/n")               
+    
                 
 
 def main():
     process_input()
     read_data_from_file(file)
-    
-    
+    kmeans(K, iter, data)
+    print_results()
+
+        
     
         
             
