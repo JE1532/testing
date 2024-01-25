@@ -55,7 +55,8 @@ int main() {
         return 1;
     }
 
-    int result = convert_to_base(num_to_convert, source_base, target_base);
+    int result;
+    result = convert_to_base(num_to_convert, source_base, target_base);
     if (result != -1){
         printf("The number in base %d is:\n%x", target_base, result);
     }
