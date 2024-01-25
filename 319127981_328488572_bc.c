@@ -3,9 +3,11 @@
 
 
 int convert_to_base(int num_to_convert, int source_base, int target_base){
-    int value_to_convert = 0;
+    int value_to_convert;
+    value_to_convert = 0;
     int mod;
-    int i = 0;
+    int i;
+    i = 0;
     while (num_to_convert > 0){
         mod = num_to_convert % 16;
         num_to_convert = num_to_convert / 16;
@@ -16,7 +18,8 @@ int convert_to_base(int num_to_convert, int source_base, int target_base){
     }
 
 
-    int result = 0;
+    int result;
+    result = 0;
     i = 0;
     while (value_to_convert > 0){
         mod = value_to_convert % target_base;
